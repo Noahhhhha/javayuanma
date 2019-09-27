@@ -1,26 +1,6 @@
 /*
- * Copyright (c) 1997, 2017, Oracle and/or its affiliates（附属公司）. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Copyright (c) 1997, 2017, Oracle and/or its affiliates（附属公司）. All rights reserved（保留的）.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms（使用要遵守许可条款）.
  */
 
 package java.util;
@@ -37,36 +17,41 @@ import java.util.function.Function;
 import sun.misc.SharedSecrets;
 
 /**
- * Hash table based implementation of the <tt>Map</tt> interface.  This
+ * Hash table based implementation of the <Map> interface.  This
  * implementation provides all of the optional map operations, and permits
- * <tt>null</tt> values and the <tt>null</tt> key.  (The <tt>HashMap</tt>
- * class is roughly equivalent to <tt>Hashtable</tt>, except that it is
- * unsynchronized and permits nulls.)  This class makes no guarantees as to
- * the order of the map; in particular, it does not guarantee that the order
- * will remain constant over time.
+ * null values and the null key.  (The HashMap
+ * class is roughly equivalent（大致相当） to Hashtable, except that it is
+ * unsynchronized（不同步的） and permits nulls.)  This class makes no guarantees as to
+ * the order of the map; in particular（尤其是）, it does not guarantee that the order
+ * will remain constant（保持不变） over time.
  *
- * <p>This implementation provides constant-time performance for the basic
- * operations (<tt>get</tt> and <tt>put</tt>), assuming the hash function
- * disperses the elements properly among the buckets.  Iteration over
- * collection views requires time proportional to the "capacity" of the
- * <tt>HashMap</tt> instance (the number of buckets) plus its size (the number
- * of key-value mappings).  Thus, it's very important not to set the initial
- * capacity too high (or the load factor too low) if iteration performance is
+ * <p>This implementation provides constant-time（恒定时间） performance for the basic
+ * operations (<get> and <put>), assuming the hash function
+ * disperses the elements properly among the buckets（假设在表中正确适当的分散了元素）.
+ * Iteration over collection views requires time proportional to the "capacity" of the
+ * <HashMap> instance (the number of buckets) plus its size (the number
+ * of key-value mappings).  （#循环整个集合需要的时间与HashMap实例的容量加上与它的键值对数量成比例）
+ * Thus, it's very important not to set the initial
+ * capacity too high (or the load factor（负载因子） too low) if iteration performance is
  * important.
  *
- * <p>An instance of <tt>HashMap</tt> has two parameters that affect its
+ * 哈希表装填（负载）因子定义为：α= 填入表中的元素个数 / 哈希表的长度
+ * 由于表长是定值，α与“填入表中的元素个数”成正比，所以，α越大，填入表中的元素较多，产生冲突的可能性就越大；
+ * α越小，填入表中的元素较少，产生冲突的可能性就越小。
+ *
+ * <p>An instance of <HashMap> has two parameters that affect its
  * performance: <i>initial capacity</i> and <i>load factor</i>.  The
  * <i>capacity</i> is the number of buckets in the hash table, and the initial
- * capacity is simply the capacity at the time the hash table is created.  The
+ * capacity is simply（只是） the capacity at the time the hash table is created.  The
  * <i>load factor</i> is a measure of how full the hash table is allowed to
  * get before its capacity is automatically increased.  When the number of
- * entries in the hash table exceeds the product of the load factor and the
+ * entries（条目） in the hash table exceeds the product of the load factor and the
  * current capacity, the hash table is <i>rehashed</i> (that is, internal data
- * structures are rebuilt) so that the hash table has approximately twice the
+ * structures are rebuilt) so that the hash table has approximately（大约） twice the
  * number of buckets.
  *
  * <p>As a general rule, the default load factor (.75) offers a good
- * tradeoff between time and space costs.  Higher values decrease the
+ * tradeoff（权衡、折衷） between time and space costs.  Higher values decrease the
  * space overhead but increase the lookup cost (reflected in most of
  * the operations of the <tt>HashMap</tt> class, including
  * <tt>get</tt> and <tt>put</tt>).  The expected number of entries in
