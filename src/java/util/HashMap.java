@@ -52,10 +52,10 @@ import sun.misc.SharedSecrets;
  *
  * <p>As a general rule, the default load factor (.75) offers a good
  * tradeoff（权衡、折衷） between time and space costs.  Higher values decrease the
- * space overhead but increase the lookup cost (reflected in most of
+ * space overhead（开销） but increase the lookup cost (reflected in most of
  * the operations of the <tt>HashMap</tt> class, including
  * <tt>get</tt> and <tt>put</tt>).  The expected number of entries in
- * the map and its load factor should be taken into account when
+ * the map and its load factor should be taken into account（被考虑到） when
  * setting its initial capacity, so as to minimize the number of
  * rehash operations.  If the initial capacity is greater than the
  * maximum number of entries divided by the load factor, no rehash
@@ -66,9 +66,9 @@ import sun.misc.SharedSecrets;
  * the mappings to be stored more efficiently than letting it perform
  * automatic rehashing as needed to grow the table.  Note that using
  * many keys with the same {@code hashCode()} is a sure way to slow
- * down performance of any hash table. To ameliorate impact, when keys
+ * down performance of any hash table. To ameliorate impact（改善碰撞）, when keys
  * are {@link Comparable}, this class may use comparison order among
- * keys to help break ties.
+ * keys to help break ties（关系）.
  *
  * <p><strong>Note that this implementation is not synchronized.</strong>
  * If multiple threads access a hash map concurrently, and at least one of
