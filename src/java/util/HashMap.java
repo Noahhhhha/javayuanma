@@ -17,6 +17,11 @@ import java.util.function.Function;
 import sun.misc.SharedSecrets;
 
 /**
+ * 约定前面的数组结构的每一个格格称为桶 bucket
+ * 约定桶的数量和为容量 capacity
+ * 约定桶后面存放的每一个数据称为 bin
+ * 约定键值对大小 size
+ *
  * Hash table based implementation of the <Map> interface.  This
  * implementation provides all of the optional map operations, and permits
  * null values and the null key.  (The HashMap
@@ -35,7 +40,7 @@ import sun.misc.SharedSecrets;
  * capacity too high (or the load factor【负载因子】 too low) if iteration performance is
  * important.
  *
- * 哈希表装填(负载)因子定义为：α= 填入表中的元素个数 / 哈希表的长度
+ * 哈希表装填(负载)因子定义为：α= 填入表中的元素个数（键值对数） / 哈希表的长度（capacity）
  * 由于表长是定值，α与填入表中的元素个数成正比，所以，α越大，填入表中的元素较多，产生冲突的可能性就越大；
  * α越小，填入表中的元素较少，产生冲突的可能性就越小。
  *
@@ -219,35 +224,45 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * The default initial capacity - MUST be a power of two. 2的幂
+     *
+     * 默认的容量，箱子数为16
      */
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
 
     /**
-     * The maximum capacity, used if a higher value is implicitly specified
-     * by either of the constructors with arguments.
-     * MUST be a power of two <= 1<<30.
+     * The maximum capacity, used if a higher value is implicitly specified【隐式的指定】
+     * by either of the constructors with arguments【任何一个带有参数的构造函数】.
+     * MUST be a power of two <= 1<<30.        1 073 741 824
+     *
+     * 默认的最大容量
      */
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
      * The load factor used when none specified in constructor.
+     *
+     * 默认的负载因子（键值对/表长度capacity）
      */
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     /**
-     * The bin count threshold for using a tree rather than list for a
+     * The bin count threshold【阈值】 for using a tree rather than list for a
      * bin.  Bins are converted to trees when adding an element to a
      * bin with at least this many nodes. The value must be greater
-     * than 2 and should be at least 8 to mesh with assumptions in
-     * tree removal about conversion back to plain bins upon
-     * shrinkage.
+     * than 2 and should be at least 8 to mesh with assumptions【与假设啮合】 in
+     * tree removal【切除】 about conversion back to plain bins upon
+     * shrinkage【收缩】.
+     *
+     * 链表长度大于 8 时，有可能会转化成树
      */
     static final int TREEIFY_THRESHOLD = 8;
 
     /**
      * The bin count threshold for untreeifying a (split) bin during a
-     * resize operation. Should be less than TREEIFY_THRESHOLD, and at
+     * resize operation【调整】. Should be less than TREEIFY_THRESHOLD, and at
      * most 6 to mesh with shrinkage detection under removal.
+     *
+     * 如果发现链表长度小于 6，则会由树重新退化为链表
      */
     static final int UNTREEIFY_THRESHOLD = 6;
 
@@ -256,6 +271,8 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * (Otherwise the table is resized if too many nodes in a bin.)
      * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
      * between resizing and treeification thresholds.
+     *
+     * 只有表长度capacity大于 64 才会发生转换低于64就不要树化了
      */
     static final int MIN_TREEIFY_CAPACITY = 64;
 
